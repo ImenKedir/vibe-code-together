@@ -9,7 +9,13 @@ import { useState } from 'react';
 import { GenerationResult, getGeneration, startGeneration } from '@/lib/api';
 import { motion } from 'framer-motion';
 
-export function UserGeneratorCard({ user }: { user: Participant | AuthUser }) {
+export function UserGeneratorCard({
+  user,
+  self = false,
+}: {
+  user: Participant | AuthUser;
+  self?: boolean;
+}) {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +83,12 @@ export function UserGeneratorCard({ user }: { user: Participant | AuthUser }) {
       animate={{ opacity: 1, y: 0 }}
     >
       <div className="flex items-center gap-2 border-b border-white/10 p-2">
-        <FontAwesomeIcon icon={faUser} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
+          alt={user.username}
+          className="w-6 h-6 rounded-full"
+        />
         <div>{user.username}</div>
       </div>
       <div className="p-2">
@@ -112,10 +123,10 @@ export function UserGeneratorCard({ user }: { user: Participant | AuthUser }) {
           <div className="text-green-500">&gt;</div>
           <input
             className="bg-transparent outline-none border-none ml-2 flex-grow"
-            placeholder="What do you want to generate?"
+            placeholder={self ? 'What do you want to generate?' : ''}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            disabled={loading}
+            disabled={loading || !self}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 generate();
