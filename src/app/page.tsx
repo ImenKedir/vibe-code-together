@@ -44,7 +44,8 @@ function LoadingScreen({ sdkReady }: { sdkReady: boolean }) {
 }
 
 export default function Home() {
-  const { auth, loggedIn, sdkReady } = useContext(DiscordSDKContext);
+  const { auth, loggedIn, sdkReady, participants } =
+    useContext(DiscordSDKContext);
 
   if (!loggedIn || !auth?.user) {
     return (
@@ -71,8 +72,12 @@ export default function Home() {
         </motion.div>
       </div>
       <div className="grid grid-cols-2 px-8 gap-8">
-        <UserGeneratorCard user={auth.user} />
-        <UserGeneratorCard user={auth.user} />
+        <UserGeneratorCard key={auth.user.id} user={auth.user} />
+        {participants
+          .filter((participant) => participant.id !== auth.user.id)
+          .map((participant) => (
+            <UserGeneratorCard key={participant.id} user={participant} />
+          ))}
       </div>
     </div>
   );

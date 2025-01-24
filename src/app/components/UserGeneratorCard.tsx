@@ -1,4 +1,4 @@
-import { AuthData } from '@/lib/DiscordSDKProvider';
+import { AuthUser, Participant } from '@/lib/DiscordSDKProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleNotch,
@@ -7,8 +7,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { GenerationResult, getGeneration, startGeneration } from '@/lib/api';
+import { motion } from 'framer-motion';
 
-export function UserGeneratorCard({ user }: { user: AuthData['user'] }) {
+export function UserGeneratorCard({ user }: { user: Participant | AuthUser }) {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,13 +70,18 @@ export function UserGeneratorCard({ user }: { user: AuthData['user'] }) {
   }
 
   return (
-    <div className="rounded-lg border border-white/10">
+    <motion.div
+      className="rounded-lg border border-white/10"
+      layoutId={user.id}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
       <div className="flex items-center gap-2 border-b border-white/10 p-2">
         <FontAwesomeIcon icon={faUser} />
         <div>{user.username}</div>
       </div>
       <div className="p-2">
-        <div className="bg-white/10 aspect-[] rounded-lg w-full relative">
+        <div className="bg-white/10 aspect-[1440/960] rounded-lg w-full relative">
           {loading || error != null ? (
             <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md rounded-lg">
               <div className="flex items-center gap-2">
@@ -118,6 +124,6 @@ export function UserGeneratorCard({ user }: { user: AuthData['user'] }) {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
