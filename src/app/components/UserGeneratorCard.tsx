@@ -3,24 +3,66 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleNotch,
   faExclamationTriangle,
-  faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GenerationResult, getGeneration, startGeneration } from '@/lib/api';
 import { motion } from 'framer-motion';
+import { SharedStateContext } from '@/lib/SharedStateProvider';
 
 export function UserGeneratorCard({
   user,
   self = false,
+  channelId,
 }: {
   user: Participant | AuthUser;
   self?: boolean;
+  channelId: string;
 }) {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<GenerationResult | null>(null);
   const [progress, setProgress] = useState<number>(0);
+
+  const { userStates, socket } = useContext(SharedStateContext);
+  const userState = userStates.get(user.id);
+
+  useEffect(() => {
+    if (!self && userState != null) {
+      if (userState.loadingPercentage != 0) {
+        setLoading(true);
+        setProgress(userState.loadingPercentage);
+      } else {
+        setLoading(false);
+      }
+
+      setPrompt(userState.prompt);
+      setResult(
+        userState.imageUrl
+          ? {
+              sample: userState.imageUrl,
+              prompt: userState.prompt,
+              seed: 0,
+              start_time: 0,
+              end_time: 0,
+              duration: 0,
+            }
+          : null
+      );
+    }
+  }, [userState, self]);
+
+
+  // Upon changes to the state, update the server
+  useEffect(() => {
+    if (self) {
+      socket?.emit('updateState', channelId, user.id, {
+        prompt: prompt || '',
+        imageUrl: result?.sample || '',
+        loadingPercentage: loading ? progress || 0 : 0,
+      });
+    }
+  }, [self, channelId, socket, progress, result, prompt, user.id, loading]);
 
   async function generate() {
     if (loading) {

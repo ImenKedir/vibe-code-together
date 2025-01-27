@@ -44,7 +44,7 @@ function LoadingScreen({ sdkReady }: { sdkReady: boolean }) {
 }
 
 export default function Home() {
-  const { auth, loggedIn, sdkReady, participants } =
+  const { auth, loggedIn, sdkReady, participants, sdk } =
     useContext(DiscordSDKContext);
 
   if (!loggedIn || !auth?.user) {
@@ -56,7 +56,7 @@ export default function Home() {
   }
 
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className="">
       <div className="flex justify-center px-8 py-4">
         <div>
           <motion.h1 className="text-3xl font-bold" layoutId="title">
@@ -71,12 +71,21 @@ export default function Home() {
           <FontAwesomeIcon icon={faUser} /> {auth.user.username}
         </motion.div>
       </div>
-      <div className="grid grid-cols-2 px-8 gap-8">
-        <UserGeneratorCard key={auth.user.id} user={auth.user} self />
+      <div className="grid grid-cols-1 sm:grid-cols-2 px-8 gap-8">
+        <UserGeneratorCard
+          key={auth.user.id}
+          user={auth.user}
+          channelId={sdk!.channelId!}
+          self
+        />
         {participants
           .filter((participant) => participant.id !== auth.user.id)
           .map((participant) => (
-            <UserGeneratorCard key={participant.id} user={participant} />
+            <UserGeneratorCard
+              key={participant.id}
+              user={participant}
+              channelId={sdk!.channelId!}
+            />
           ))}
       </div>
     </div>

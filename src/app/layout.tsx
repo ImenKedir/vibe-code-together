@@ -5,6 +5,7 @@ import DiscordSDKProvider from '@/lib/DiscordSDKProvider';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { SharedStateProvider } from '@/lib/SharedStateProvider';
 config.autoAddCss = false;
 
 const geistSans = Geist({
@@ -29,13 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <DiscordSDKProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
+      <SharedStateProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+          </body>
+        </html>
+      </SharedStateProvider>
     </DiscordSDKProvider>
   );
 }
