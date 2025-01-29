@@ -1,4 +1,11 @@
 {
+  "name": "gentogether-realtime-server",
+  "description": "The realtime websocket server to facilitate communication between users of GenTogether.",
+  "scripts": {
+    "start": "tsc && node ./dist/realtime.js",
+    "dev": "nodemon ./realtime.ts",
+    "tunnel": "cloudflared tunnel --url localhost:3001"
+  },
   "dependencies": {
     "nodemon": "^3.1.9",
     "socket.io": "^4.8.1",

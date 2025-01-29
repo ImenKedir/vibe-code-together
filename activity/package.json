@@ -1,12 +1,14 @@
 {
   "name": "gentogether",
+  "author": "Thijs Simonian",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tunnel": "cloudflared tunnel --url localhost:3000"
   },
   "dependencies": {
     "@discord/embedded-app-sdk": "^1.9.0",

@@ -1,4 +1,4 @@
-// This is a barebones realtime server for the activity.
+// This is a bare-bones realtime server for the activity.
 // It is **not secure** and should not be used in production.
 
 const { Server } = require('socket.io');
