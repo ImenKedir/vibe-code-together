@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
