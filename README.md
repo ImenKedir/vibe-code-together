@@ -4,6 +4,11 @@ This is an example of a final project that integrates with Discord as a Discord 
 
 GenTogether, powered by Black Forest Labs' image generation models, allows Discord users to generate images together, seeing each others' prompts and generated images in real time.
 
+In the example below, we have two different users on each side generating images together:
+
+https://github.com/user-attachments/assets/1b4c50fb-a6c5-4926-b05f-db89e42366d0
+
+
 ## Discord Activities
 
 Discord Activities are a type of Discord App that allows you to embed an iFrame of often a game or app into the Discord client. Users can launch activities in voice calls or text channels, and other users can join to participate in real time.
