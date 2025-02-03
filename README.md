@@ -15,6 +15,16 @@ Discord Activities are a type of Discord App that allows you to embed an iFrame 
 
 Activities are inherently more complex than bots, as they involve not only a web app, but implementation of a realtime server to facilitate communication of the state between users. However, they allow you to create incredible projects, as you're building the entire UX.
 
+## Tutorials
+
+We've put together a few useful tutorials to help you get started.
+
+### Cursor Tutorial
+Here's a short tutorial on how to use the Cursor IDE for building your projects. Run Cmd(ctrl)-I to open the composer if it doesn't show up for you!
+
+[![Frame 11](https://github.com/user-attachments/assets/2a4442ca-4170-40e2-b7b7-e163ae450801)](https://drive.google.com/file/d/1XFs17kZvEUx2xFLVistcdDuHnGFXU93a/view?usp=drive_link)
+
+
 ## Project Structure
 
 In this example, the activity is split into two parts:
