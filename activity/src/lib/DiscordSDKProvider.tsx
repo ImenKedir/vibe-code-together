@@ -52,11 +52,7 @@ export const DiscordSDKContext = createContext<DiscordSDKContextValue>({
   participants: [],
 });
 
-export default function PWAProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PWAProvider({ children }: { children: React.ReactNode }) {
   const [sdk, setSdk] = useState<DiscordSDK | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -111,24 +107,17 @@ export default function PWAProvider({
       getParticipants(sdk);
 
       // Subscribe to events
-      sdk.subscribe(
-        'ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE',
-        handleParticipantsUpdate
-      );
+      sdk.subscribe('ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE', handleParticipantsUpdate);
     }
 
-    const discordSDK = new DiscordSDK(
-      process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!
-    );
+    const discordSDK = new DiscordSDK(process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!);
     setSdk(discordSDK);
 
     setupSDK(discordSDK);
   }, []);
 
   return (
-    <DiscordSDKContext.Provider
-      value={{ sdk, sdkReady, loggedIn, auth, participants }}
-    >
+    <DiscordSDKContext.Provider value={{ sdk, sdkReady, loggedIn, auth, participants }}>
       {children}
     </DiscordSDKContext.Provider>
   );

@@ -20,16 +20,10 @@ export const SharedStateContext = createContext<SharedStateContextValue>({
   socket: null,
 });
 
-export function SharedStateProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function SharedStateProvider({ children }: { children: React.ReactNode }) {
   const { sdk } = useContext(DiscordSDKContext);
 
-  const [userStates, setUserStates] = useState<Map<string, UserState>>(
-    new Map()
-  );
+  const [userStates, setUserStates] = useState<Map<string, UserState>>(new Map());
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {

@@ -1,8 +1,4 @@
-export async function startGeneration(
-  prompt: string,
-  width: number,
-  height: number
-) {
+export async function startGeneration(prompt: string, width: number, height: number) {
   const response = await fetch(`/.proxy/api/generate`, {
     method: 'POST',
     body: JSON.stringify({
