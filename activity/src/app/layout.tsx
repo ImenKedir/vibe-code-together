@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import DiscordSDKProvider from '@/lib/DiscordSDKProvider';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -29,16 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <DiscordSDKProvider>
-      <SharedStateProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            {children}
-          </body>
-        </html>
-      </SharedStateProvider>
-    </DiscordSDKProvider>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <DiscordSDKProvider>
+          <SharedStateProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </SharedStateProvider>
+        </DiscordSDKProvider>
+      </body>
+    </html>
   );
 }

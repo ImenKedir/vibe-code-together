@@ -1,0 +1,27 @@
+# Build artifacts
+.next/
+out/
+build/
+dist/
+
+# Dependencies
+node_modules/
+
+# Generated files
+package-lock.json
+bun.lockb
+*.lock
+
+# Public assets
+public/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Next.js
+next-env.d.ts 

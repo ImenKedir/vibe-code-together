@@ -1,9 +1,6 @@
 import { AuthUser, Participant } from '@/lib/DiscordSDKProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleNotch,
-  faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleNotch, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from 'react';
 import { GenerationResult, getGeneration, startGeneration } from '@/lib/api';
 import { motion } from 'framer-motion';
@@ -52,7 +49,6 @@ export function UserGeneratorCard({
     }
   }, [userState, self]);
 
-
   // Upon changes to the state, update the server
   useEffect(() => {
     if (self) {
@@ -92,10 +88,7 @@ export function UserGeneratorCard({
         if (generation.result != null) {
           // Success
           const result = generation.result;
-          result.sample = result.sample.replace(
-            'https://delivery-us1.bfl.ai/',
-            '/.proxy/gen/'
-          );
+          result.sample = result.sample.replace('https://delivery-us1.bfl.ai/', '/.proxy/gen/');
           setResult(result);
         } else {
           // Failed: either moderation or error
@@ -139,10 +132,7 @@ export function UserGeneratorCard({
             <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md rounded-lg">
               <div className="flex items-center gap-2">
                 {loading ? (
-                  <FontAwesomeIcon
-                    icon={faCircleNotch}
-                    className="animate-spin"
-                  />
+                  <FontAwesomeIcon icon={faCircleNotch} className="animate-spin" />
                 ) : (
                   <FontAwesomeIcon icon={faExclamationTriangle} />
                 )}
@@ -167,9 +157,9 @@ export function UserGeneratorCard({
             className="bg-transparent outline-none border-none ml-2 flex-grow"
             placeholder={self ? 'What do you want to generate?' : ''}
             value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
+            onChange={e => setPrompt(e.target.value)}
             disabled={loading || !self}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
               if (e.key === 'Enter') {
                 generate();
               }

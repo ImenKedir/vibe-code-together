@@ -1,14 +1,19 @@
 'use client';
 import { useContext } from 'react';
 import { motion } from 'framer-motion';
-import { P5Sketch } from './components/P5Sketch';
-import { LoadingScreen } from './components/Loading';
+import { Chat } from '@/components/chat';
+import { generateUUID } from '@/lib/utils';
+import { P5Sketch } from '@/components/p5-sketch';
+import { LoadingScreen } from '@/components/loading';
+import { AppSidebar } from '@/components/app-sidebar';
+import { SidebarInset } from '@/components/ui/sidebar';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { DiscordSDKContext } from '@/lib/DiscordSDKProvider';
+import { bouncingShapeSketch } from '@/sketches/bouncing-shape';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { bouncingShapeSketch } from './sketches/bouncing-shape';
 
 export default function Home() {
+  const id = generateUUID();
   const { auth, loggedIn, sdkReady } = useContext(DiscordSDKContext);
 
   if (!loggedIn || !auth?.user) {
@@ -20,24 +25,11 @@ export default function Home() {
   }
 
   return (
-    <div className="">
-      <div className="flex justify-center px-8 py-4">
-        <div>
-          <motion.h1 className="text-3xl font-bold" layoutId="title">
-            Vibe Code P5.js Games Together
-          </motion.h1>
-        </div>
-        <motion.div
-          className="ml-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <FontAwesomeIcon icon={faUser} /> {auth.user.username}
-        </motion.div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 px-8 gap-8">
-        <P5Sketch sketch={bouncingShapeSketch} />
-      </div>
-    </div>
+    <>
+      <AppSidebar username="beatsbyanax@gmail.com" />
+      <SidebarInset>
+        <Chat id={id} initialMessages={[]} isReadonly={false} />
+      </SidebarInset>
+    </>
   );
 }
